@@ -70,9 +70,14 @@ local opts = {
   style = "minimal",
 }
 
+local augroup = vim.api.nvim_create_augroup("BongoCat", { clear = true })
+
 M.create = function()
   local buf_id = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_name(buf_id, "BongoCat")
   vim.api.nvim_buf_set_lines(buf_id, 0, -1, true, frames[current_frame_index])
+  vim.api.nvim_win_set_buf(0, buf_id)
+  vim.api.nvim_win_set_cursor(0, { vim.api.nvim_buf_line_count(buf_id), 0 })
   local win_id = vim.api.nvim_open_win(buf_id, false, opts)
   return win_id
 end
