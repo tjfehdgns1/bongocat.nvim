@@ -15,7 +15,6 @@ local bongo_up = {
   "⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠸⣿⣿⣿⣿⣿⣿⣿⣷⠀",
   "  ⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉  ",
 }
-
 local bongo_down = {
   "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
   "⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇⠀⠀⠀⠀",
@@ -27,7 +26,6 @@ local bongo_down = {
   "⢸⣿⣿⣿⣿⠟⠋⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⣿⣿⣿⡿⠛⠉⠉⠉⠉ ",
   "⠘⠛⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠃⠀⠀⠀⠀⠀  ",
 }
-
 local bongo_left = {
   "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
   "⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇⠀⠀⠀⠀",
@@ -39,7 +37,6 @@ local bongo_left = {
   "⢸⣿⣿⣿⣿⠟⠋⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉ ",
   "⠘⠛⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀    ⠀⠀⠀⠀⠀  ",
 }
-
 local bongo_right = {
   "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
   "⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇⠀⠀⠀⠀",
@@ -51,6 +48,15 @@ local bongo_right = {
   "  ⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⣿⣿⣿⡿⠛⠉⠉⠉⠉  ",
   "                  ⠛⠛⠛⠃⠀⠀⠀⠀⠀  ⠀",
 }
+
+local frames = {
+  bongo_up,
+  bongo_left,
+  bongo_down,
+  bongo_right
+}
+
+local current_frame_index = 1
 
 
 local opts = {
@@ -66,9 +72,14 @@ local opts = {
 
 M.create = function()
   local buf_id = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf_id, 0, -1, true, bongo_up)
+  vim.api.nvim_buf_set_lines(buf_id, 0, -1, true, frames[current_frame_index])
   local win_id = vim.api.nvim_open_win(buf_id, false, opts)
   return win_id
+end
+
+M.update_frame = function()
+  local buf_id = vim.api.nvim_win_get_buf(M.win_id)
+  vim.api.nvim_buf_set_lines(buf_id, 0, -1, true, frames[current_frame_index])
 end
 
 
