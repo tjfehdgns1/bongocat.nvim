@@ -69,6 +69,15 @@ Blazing Useless Cute Bongo Cat Coding
                    ⠛⠛⠛⠃⠀⠀⠀⠀⠀  ⠀
 ```
 
+## Ascii
+
+```
+ /\_/\
+( o o )
+==_Y_==
+  `-'
+```
+
 ---
 
 ## How 
@@ -78,4 +87,10 @@ Blazing Useless Cute Bongo Cat Coding
 │    │
 ╰────╯
 ```
+
+Using different frames?
+
+Using svg from web?
+
+---
 
